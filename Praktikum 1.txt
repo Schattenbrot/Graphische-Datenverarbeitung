@@ -1,0 +1,14 @@
+Praktikum 1:
+
+Frage:
+	1.	Man sieht eine rote quadratische Fläche.
+	2.	Das Quadrat wird nicht mehr angezeigt.
+	3.	Die Farbe muss vor dem Eckpunkt stehen und gilt für alle folgenden Punkte bis eine andere Farbe angegeben wird, die für die danach folgenden Punkte gilt.
+	4.	glClear wird an den Anfang von RenderScene() gesetzt, damit die ganze Fläche zum nutzen bereit ist.
+	5.	glClearColor kommt direkt nach glClear, da es sonst keine auswirkung hat oder andere Farben überschreiben könnte.
+	6.	Vermutlich bleiben die Farben bestehen und man hat den XP-Fehlermeldungs-Effekt.
+	7.	Ich sehe nur die grüne Fläche.
+	8.	Man sieht immer die zuletzt erzeugte Fläche.
+	9.	a)	Ja
+		b)	Der Z-Buffer benutzt die Z-Ebene als einen Container und rendert diese in der richtigen Reihenfolge (von - nach +) entlang der Z-Achse.
+	10.	Man sieht die hintere Wand des Würfels.
