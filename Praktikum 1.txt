@@ -11,4 +11,10 @@ Frage:
 	8.	Man sieht immer die zuletzt erzeugte Fläche.
 	9.	a)	Ja
 		b)	Der Z-Buffer benutzt die Z-Ebene als einen Container und rendert diese in der richtigen Reihenfolge (von - nach +) entlang der Z-Achse.
-	10.	Man sieht die hintere Wand des Würfels.
+	10.	Man sieht die hintere Wand des Würfels. Wir sehen diese da unser blickwinkel sich im Wüfel befindet und die Negative Z-achse entlang schaut.
+	11. a)	Die glDoubleFar ist zu nah.Der Würfel befindet sich nicht im Frustum
+		b)	Ortho(-1., 1., -1., 1., 0, 1.);    
+			gluLookAt(1., 0., 0.,
+						0., 0., 0.,
+						0., 1., 0.); 
+		c) 	(1.,1.,0.)
