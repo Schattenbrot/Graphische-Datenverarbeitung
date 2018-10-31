@@ -23,7 +23,8 @@ void RenderScene() //Zeichenfunktion
 
 	//glTranslatef(0.0, 0.0, -1.0);
 
-
+
+
 	glutSwapBuffers();
 	gluLookAt(0., 0., 1.,
 		0., 0., 0.,
@@ -44,7 +45,8 @@ void Reshape(int width, int height)
 	// Frustum definieren (siehe unten)
 	glOrtho(-1., 1., -1., 1., 0., 1.);
 	// Matrix für Modellierung/Viewing
-	glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_MODELVIEW);
+
 }
 
 void Animate(int value)
