@@ -1,4 +1,4 @@
-Praktikum 1:
+﻿Praktikum 1:
 
 Frage:
 	1.	Man sieht eine rote quadratische Fläche.
@@ -18,3 +18,7 @@ Frage:
 						0., 0., 0.,
 						0., 1., 0.); 
 		c) 	(1.,1.,0.)
+	12.	Man kann es mehrmals schreiben.
+		Muss über Translate und Scale stehen.
+		Es reicht jedoch es einmal oberhalb beider Würfel zu schreiben.
+	13.	Der vermutete XP-Fehlermeldungs-Effekt ist eingetreten.
