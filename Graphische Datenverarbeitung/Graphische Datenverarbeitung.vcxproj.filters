@@ -38,5 +38,8 @@
     <ClCompile Include="teil_4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="teil_OwnPart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

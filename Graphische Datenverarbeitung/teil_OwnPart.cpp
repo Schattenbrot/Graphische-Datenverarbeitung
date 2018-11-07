@@ -6,6 +6,8 @@
 #include "Wuerfel.h"
 
 float fRotation = 215.0f;
+float fBeinchen = -0.4f;
+float fFlighing = 0.0f;
 
 void Init()
 {
@@ -21,28 +23,73 @@ void RenderScene() //Zeichenfunktion
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(1.0, 80.0 / 255.0, 0.0, 1.0);		// Orange = FF8000
 	glLoadIdentity();   // Aktuelle Model-/View-Transformations-Matrix zuruecksetzen
-	gluLookAt(0., 0., 1.,
+	gluLookAt(1., 1., 0.3,
 		0., 0., 0.,
 		0., 1., 0.);
+	
+	glPushMatrix();
 
-	glutWireCube(0.2);
-	glTranslatef(0.1, 0.1, 0);
-	glRotatef(90, 0, 0, 1);
+	glTranslatef(0.,fFlighing, 0.);
+
+	//Hauptwürfel
+	glPushMatrix();
+	glScalef(3,3,3);
+	Wuerfel(0.4, 0, 0, 0, 1);
+	glPopMatrix();
+	
+	// Beine
+	glPushMatrix();
+	glTranslatef(0.39, fBeinchen, 0.39);
+	glScalef(1, 3, 1);
+	Wuerfel(0.4,1,0,2,1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.39, fBeinchen, -0.39);
+	glScalef(1, 3, 1);
+	Wuerfel(0.4, 1, 0, 2, 1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-0.39, fBeinchen, 0.39);
+	glScalef(1, 3, 1);
+	Wuerfel(0.4, 1, 0, 2, 1);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-0.39, fBeinchen, -0.39);
+	glScalef(1, 3, 1);
+	Wuerfel(0.4, 1, 0, 2, 1);
+	glPopMatrix();
+
+	// ROTOR
+	glPushMatrix();
+
 	glRotatef(fRotation, 0, 1, 0);
 
+	// Rotorhalter
 	glPushMatrix();
-	glScalef(2, 1, 1);
-	glTranslatef(0.2, 0, 0);
-	Wuerfel(0.4);
+	glTranslatef(0, 0.4, 0);
+	glScalef(0.5, 3, 0.5);
+	Wuerfel(0.4, 1, 0, 2, 1);
+	glPopMatrix();
+
+	// Rotorblatt
+	glPushMatrix();
+	glTranslatef(0,1,0);
+	glScalef(3,0.1,1);
+	Wuerfel(0.4,0,1,0,1);
 	glPopMatrix();
 
 	glPushMatrix();
-	glScalef(2, .5, .5);
-	glTranslatef(0.6, 0, 0);
-	Wuerfel(0.4);
+	glTranslatef(0, 1, 0);
+	glScalef(1, 0.1, 3);
+	Wuerfel(0.4, 0, 1, 0, 1);
+	glPopMatrix();
+	
 	glPopMatrix();
 
-
+	glPopMatrix();
 
 	glutSwapBuffers();
 }
@@ -59,7 +106,7 @@ void Reshape(int width, int height)
 	// Viewport definieren
 	glViewport(0, 0, width, height);
 	// Frustum definieren (siehe unten)
-	glOrtho(-2., 2., -2., 2., -2., 2.);
+	glOrtho(-5., 5., -5., 5., -5., 5.);
 	// Matrix für Modellierung/Viewing
 	glMatrixMode(GL_MODELVIEW);
 
@@ -73,9 +120,21 @@ void Animate(int value)
 	// inkrementiert und dem Callback wieder uebergeben. 
 	std::cout << "value=" << value << std::endl;
 	// RenderScene aufrufen
+	bool readyToFligh{ false };
+	if (fBeinchen < -0.05) {
+		fBeinchen = fBeinchen + 0.01;
+	}
+	else {
+		readyToFligh = true;
+	}
+	
 	fRotation = fRotation - 1.0; // Rotationswinkel aendern
 	if (fRotation <= 0.0) {
 		fRotation = fRotation + 360.0;
+	}
+
+	if (readyToFligh) {
+		fFlighing = fFlighing + 0.02f;
 	}
 
 	glutPostRedisplay();
@@ -98,32 +157,3 @@ int main(int argc, char **argv)
 	glutMainLoop();
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
