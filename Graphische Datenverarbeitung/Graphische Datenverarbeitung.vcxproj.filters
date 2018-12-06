@@ -21,6 +21,9 @@
     <ClInclude Include="Wuerfel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="teil_1.cpp">
@@ -39,6 +42,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="teil_OwnPart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="teil_ownPartAdditionalPoints.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

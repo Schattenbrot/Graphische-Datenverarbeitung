@@ -5,6 +5,7 @@
 #include <GL/freeglut.h>         //lädt alles für OpenGL
 #include "Wuerfel.h"
 
+float fRotorheight = -1.0f;
 float fRotation = 215.0f;
 float fBeinchen = -0.4f;
 float fFlighing = 0.0f;
@@ -23,7 +24,7 @@ void RenderScene() //Zeichenfunktion
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(1.0, 80.0 / 255.0, 0.0, 1.0);		// Orange = FF8000
 	glLoadIdentity();   // Aktuelle Model-/View-Transformations-Matrix zuruecksetzen
-	gluLookAt(1., 1., 0.3,
+	gluLookAt(1., 0.5, 0.3,
 		0., 0., 0.,
 		0., 1., 0.);
 	
@@ -66,24 +67,24 @@ void RenderScene() //Zeichenfunktion
 	glPushMatrix();
 
 	glRotatef(fRotation, 0, 1, 0);
-
+	glTranslatef(0, fRotorheight, 0);
 	// Rotorhalter
 	glPushMatrix();
-	glTranslatef(0, 0.4, 0);
-	glScalef(0.5, 3, 0.5);
+	glTranslatef(0, 0.6, 0);
+	glScalef(0.5, 2, 0.5);
 	Wuerfel(0.4, 1, 0, 2, 1);
 	glPopMatrix();
 
 	// Rotorblatt
 	glPushMatrix();
-	glTranslatef(0,1,0);
-	glScalef(3,0.1,1);
+	glTranslatef(0, 1,0);
+	glScalef(2.9,0.1,1);
 	Wuerfel(0.4,0,1,0,1);
 	glPopMatrix();
 
 	glPushMatrix();
 	glTranslatef(0, 1, 0);
-	glScalef(1, 0.1, 3);
+	glScalef(1, 0.1, 2.9);
 	Wuerfel(0.4, 0, 1, 0, 1);
 	glPopMatrix();
 	
@@ -120,21 +121,34 @@ void Animate(int value)
 	// inkrementiert und dem Callback wieder uebergeben. 
 	std::cout << "value=" << value << std::endl;
 	// RenderScene aufrufen
-	bool readyToFligh{ false };
-	if (fBeinchen < -0.05) {
-		fBeinchen = fBeinchen + 0.01;
+	bool legready{};
+	if (fRotorheight < 0)
+	{
+		fRotorheight += 0.01;
 	}
 	else {
-		readyToFligh = true;
-	}
-	
-	fRotation = fRotation - 1.0; // Rotationswinkel aendern
-	if (fRotation <= 0.0) {
-		fRotation = fRotation + 360.0;
+		legready = true;
 	}
 
+	bool readyToFligh{ false };
+	if(legready){
+		if (fBeinchen < -0.05) {
+			fBeinchen = fBeinchen + 0.01;
+		}
+		else {
+			readyToFligh = true;
+		}
+
+		fRotation = fRotation - 1.0; // Rotationswinkel aendern
+		if (fRotation <= 0.0) {
+			fRotation = fRotation + 360.0;
+		}
+	}
+	
+	
+
 	if (readyToFligh) {
-		fFlighing = fFlighing + 0.02f;
+		fFlighing = fFlighing + 0.04f;
 	}
 
 	glutPostRedisplay();
